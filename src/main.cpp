@@ -152,7 +152,7 @@ public:
         std::vector<uint8_t> compressed(compressed_size);
 
         if (compress(compressed.data(), &compressed_size, uncompressed.data(), uncompressed.size()) != Z_OK) {
-            std::cerr << "Compression failed" << std::endl;
+            std::cerr << std::endl << "Compression failed" << std::endl;
             return;
         }
         compressed.resize(compressed_size);
@@ -182,11 +182,7 @@ public:
 
         for (const auto& name : used_names) {
             write_u16(buf, name.size());
-            for (char c : name){
-                write_u8(buf, c);
-                std::cout << c;
-            }
-            std::cout << std::endl;
+            for (char c : name) write_u8(buf, c);
         }
 
         // Nodes
