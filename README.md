@@ -25,3 +25,6 @@ And second you need [Minetest/Luanti](https://github.com/luanti-org/luanti) and 
 Run `png2mts --image <your image path here> --output <your output path here>` (e.g `png2mts --image ~/luanti-64.png --output ~/luanti-64.mts`) and move the resulting .mts file to your Luanti world's schematic directory (generally at `~/.minetest/worlds/<world name>/schems`)
 
 Run Luanti and load the schematic and profit!
+
+# How to NOT use
+Do not give the converter a JPEG or a PNG with no alpha channel. your image is gonna be weird and distorted (for now. i'll work on this)
