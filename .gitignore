@@ -3,6 +3,7 @@
 !README.md
 !/palettes/
 !/palettes/default.txt
+!/palettes/all.txt
 !/src/
 !/src/main.cpp
 !/src/stb_image.h
