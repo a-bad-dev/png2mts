@@ -106,7 +106,7 @@ public:
         std::cout << "Encoding image... [0/" << node_count << "]";
 
         for (int i = 0; i < node_count; i++) {
-            std::cout << "\rEncoding image... [" << i + 1<< "/" << node_count << "]" << std::flush;
+            std::cout << "\rEncoding image... [" << i + 1 << "/" << node_count << "]" << std::flush;
             
             int r = image.data[i * 4];
             int g = image.data[i * 4 + 1];
@@ -216,13 +216,13 @@ struct CommandArgs {
     CommandArgs(int argc, char **argv) : argc(argc), argv(argv) {
         for (int i = 1; i < argc; i++) {
             std::string arg = argv[i];
-            if (arg == "--palette") {
+            if (arg == "--palette" || arg == "-p") {
                 palette_path = next_arg(i);
-            } else if (arg == "--image") {
+            } else if (arg == "--image" || arg == "-i") {
                 image_path = next_arg(i);
-            } else if (arg == "--output") {
+            } else if (arg == "--output" || arg == "-o") {
                 output_path = next_arg(i);
-            } else if (arg == "--help") {
+            } else if (arg == "--help" || arg == "-h") {
                 print_help();
                 exit(0);
             }
@@ -239,10 +239,10 @@ struct CommandArgs {
     void print_help() const {
         std::cout << "Usage: " << argv[0] << " [OPTIONS] --image <image_path>" << std::endl;
         std::cout << "Options:" << std::endl;
-        std::cout << "  --palette <palette_path>  Path to the palette file" << std::endl;
-        std::cout << "  --image <image_path>      Path to the image file" << std::endl;
-        std::cout << "  --output <output_path>    Path to the output file (If not provided it defaults to `<image_path>.mts`)" << std::endl;
-        std::cout << "  --help                    Print this help message" << std::endl;
+        std::cout << "  --palette | -p <palette_path>  Path to the palette file" << std::endl;
+        std::cout << "  --image | -i <image_path>      Path to the image file" << std::endl;
+        std::cout << "  --output | -o <output_path>    Path to the output file (If not provided it defaults to `<image_path>.mts`)" << std::endl;
+        std::cout << "  --help | -h                    Print this help message" << std::endl;
     }
 };
 
@@ -281,7 +281,7 @@ int main(int argc, char **argv) {
     unsigned char *data = stbi_load(args.image_path.c_str(), &width, &height,
                                     &channels, 4);
     if (!data) {
-        std::cerr << "Error in loading the image" << std::endl;
+        std::cerr << "Error loading the image" << std::endl;
         std::cerr << stbi_failure_reason() << std::endl;
         return -1;
     }
