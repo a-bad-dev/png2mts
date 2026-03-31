@@ -105,27 +105,30 @@ public:
 
     void encode_image(const ImageData &image, const std::string &output_path, const Orientation &orientation) {
         // Orientation
+        const int w = orientation.angle % 180 == 0 ? image.width : image.height;
+        const int h = orientation.angle % 180 == 0 ? image.height : image.width;
+
         Vec4 dimensions;
 
         switch (orientation.axis) {
             case Axis::XY: {
-                dimensions.x = image.width;
-                dimensions.y = image.height;
+                dimensions.x = w;
+                dimensions.y = h;
                 dimensions.z = 1;
                 break;
             }
 
             case Axis::XZ: {
-                dimensions.x = image.width;
+                dimensions.x = w;
                 dimensions.y = 1;
-                dimensions.z = image.height;
+                dimensions.z = h;
                 break;
             }
 
             case Axis::YZ: {
                 dimensions.x = 1;
-                dimensions.y = image.height;
-                dimensions.z = image.width;
+                dimensions.y = h;
+                dimensions.z = w;
                 break;
             }
 
@@ -146,21 +149,33 @@ public:
 
         std::cout << "Encoding image... [0/" << node_count << "]";
 
-        const int w = image.width;
-        const int h = image.height;
-        for (int y = 0; y < image.height; y++)
-        for (int x = 0; x < image.width; x++)
+        for (int y = 0; y < h; y++)
+        for (int x = 0; x < w; x++)
         {
-            int i;
+            int rx, ry;
 
-            // I apologize for the lack of readability
             switch (orientation.angle) {
-                case 90:  i = (x * w + (h - y)); break;
-                case 180: i = ((h - y) * h + (w - x)); break;
-                case 270: i = ((w - x) * w + y); break;
-                default:  i = (y * h + x); break;
+                case 90:
+                    rx = y;
+                    ry = image.height - 1 - x;
+                    break;
+
+                case 180:
+                    rx = image.width  - 1 - y;
+                    ry = image.height - 1 - x;
+                    break;
+
+                case 270:
+                    rx = image.width  - 1 - y;
+                    ry = x;
+                    break;
+
+                default:
+                    rx = x;
+                    ry = y;
+                    break;
             }
-            i *= 4;
+            int i = (ry * image.width + rx) * 4;
 
             int r = image.data[i];
             int g = image.data[i + 1];
@@ -181,7 +196,7 @@ public:
 
             image_nodes.push_back(iterator->second);
 
-            std::cout << "\rEncoding image... [" << i << "/" << node_count << "]" << std::flush;
+            std::cout << "\rEncoding image... [" << image_nodes.size() << "/" << node_count << "]" << std::flush;
         }
 
         std::cout << std::endl << "Encoding Schematic..." << std::endl;
