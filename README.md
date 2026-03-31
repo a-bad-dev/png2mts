@@ -1,5 +1,7 @@
 # PNG2MTS
 
+<img src="misc/demo.png" alt="showcase"/>
+
 A WIP converter that takes a PNG image and converts it to a Luanti schematic.
 (WARNING: Success converting images not guaranteed.)
 
