@@ -180,6 +180,8 @@ public:
             }
 
             image_nodes.push_back(iterator->second);
+
+            std::cout << "\rEncoding image... [" << i << "/" << node_count << "]" << std::flush;
         }
 
         std::cout << std::endl << "Encoding Schematic..." << std::endl;
