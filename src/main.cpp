@@ -148,9 +148,14 @@ public:
 
         const int w = image.width;
         const int h = image.height;
+        int encoded_count = 0;
+        
         for (int y = 0; y < image.height; y++)
         for (int x = 0; x < image.width; x++)
         {
+            encoded_count++;
+            std::cout << "\rEncoding image... [" << encoded_count << "/" << node_count << "]" << std::flush;
+        
             int i;
 
             // I apologize for the lack of readability
@@ -180,8 +185,6 @@ public:
             }
 
             image_nodes.push_back(iterator->second);
-
-            std::cout << "\rEncoding image... [" << i << "/" << node_count << "]" << std::flush;
         }
 
         std::cout << std::endl << "Encoding Schematic..." << std::endl;
@@ -330,6 +333,7 @@ struct CommandArgs {
         std::cout << "  --output | -o <output_path>    Path to the output file (If not provided it defaults to `<image_path>.mts`)" << std::endl;
         std::cout << "  --axis | -a <XY|XZ|ZY>         Reorient the schematic to one of the listed axis (If not provided it defaults to `XZ`)" << std::endl;
         std::cout << "  --rotate | -r <0|90|180|270>   Rotate the schematic by the listed angles (If not provided it defaults to `0`)" << std::endl;
+        std::cout << "  --flip-y | -f                  Flip the Y axis" << std::endl;
         std::cout << "  --help | -h                    Print this help message" << std::endl;
     }
 };
