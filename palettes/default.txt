@@ -1,127 +1,127 @@
-air ; 0 0 0 0
+air  0 0 0 0
 
-wool:black ;      29 29 29
-wool:blue ;       0 72 145
-wool:brown ;      86 42 0
-wool:cyan ;       0 130 139
-wool:dark_green ; 32 102 0
-wool:dark_grey ;  59 59 59
-wool:green ;      92 216 28
-wool:grey ;    131 131 131
-wool:magenta ;    200 3 109
-wool:orange ;  213 81 21
-wool:pink ;    255 131 131
-wool:red ;     168 17 17
-wool:violet ;     92 2 169
-wool:white ;      220 220 220
-wool:yellow ;  254 225 15
+wool:black       29 29 29
+wool:blue        0 72 145
+wool:brown       86 42 0
+wool:cyan        0 130 139
+wool:dark_green  32 102 0
+wool:dark_grey   59 59 59
+wool:green       92 216 28
+wool:grey     131 131 131
+wool:magenta     200 3 109
+wool:orange   213 81 21
+wool:pink     255 131 131
+wool:red      168 17 17
+wool:violet      92 2 169
+wool:white       220 220 220
+wool:yellow   254 225 15
 
-default:acacia_bush_sapling ; 85 118 58
-default:acacia_bush_stem ; 84 76 69
-default:acacia_leaves ; 108 147 67
-default:acacia_sapling ; 86 116 61
-default:acacia_wood ; 146 60 37
-default:apple ; 145 20 9
-default:aspen_leaves ; 70 104 27
-default:aspen_sapling ; 82 110 43
-default:aspen_wood ; 209 198 169
-default:bookshelf ; 92 80 45
-default:brick ; 117 71 69
-default:bronzeblock ; 185 110 15
-default:bush_sapling ; 65 60 40
-default:bush_stem ; 45 33 23
-default:cactus ; 52 116 15
-default:chest ; 140 108 65
-default:clay ; 182 182 182
-default:coalblock ; 57 57 57
-default:cobble ; 88 84 82
-default:dirt_with_coniferous_litter ; 107 88 68
-default:copperblock ; 192 126 63
-default:coral_brown ; 139 104 72
-default:coral_cyan ; 0 134 137
-default:coral_green ; 26 168 0
-default:coral_orange ; 191 62 12
-default:coral_pink ; 204 5 130
-default:coral_skeleton ; 235 230 214
-default:desert_cobble ; 107 65 49
-default:desert_sand ; 206 165 98
-default:desert_sandstone_block ; 192 151 94
-default:desert_sandstone_brick ; 191 151 94
-default:desert_sandstone ; 195 152 92
-default:desert_stone_block ; 130 79 60
-default:desert_stonebrick ; 129 79 60
-default:desert_stone ; 129 79 60
-default:diamondblock ; 135 217 223
-default:dirt ; 96 67 41
-default:dry_dirt ; 178 136 90
-default:dry_grass_1 ; 208 172 87
-default:dry_grass_2 ; 210 174 87
-default:dry_grass_3 ; 210 174 87
-default:dry_grass_4 ; 211 175 88
-default:dry_grass_5 ; 213 178 92
-default:dry_shrub ; 101 66 17
-default:emergent_jungle_sapling ; 48 39 15
-default:fern_1 ; 81 114 48
-default:fern_2 ; 86 118 50
-default:fern_3 ; 88 121 52
-default:furnace ; 100 96 94
-default:glass ; 247 247 247 15
-default:goldblock ; 230 201 29
-default:grass_1 ; 97 138 53
-default:grass_2 ; 95 136 54
-default:grass_3 ; 91 133 52
-default:grass_4 ; 86 130 45
-default:grass_5 ; 83 124 47
-default:dirt_with_grass ; 64 111 25
-default:gravel ; 131 131 131
-default:ice ; 167 206 247
-default:junglegrass ; 63 105 25
-default:jungleleaves ; 20 28 15
-default:junglesapling ; 48 38 15
-default:junglewood ; 54 37 11
-default:sand_with_kelp ; 139 138 46
-default:ladder_steel ; 126 126 126
-default:ladder_wood ; 123 90 34
-default:large_cactus_seedling ; 44 101 16
-default:lava_source ; 196 76 6
-default:leaves ; 34 52 29
-default:marram_grass_1 ; 96 133 89
-default:marram_grass_2 ; 87 126 83
-default:marram_grass_3 ; 85 125 82
-default:mese_block ; 220 220 0
-default:meselamp ; 211 213 139
-default:permafrost_with_moss ; 106 147 49
-default:mossycobble ; 86 90 68
-default:obsidian_block ; 20 22 25
-default:obsidianbrick ; 20 22 24
-default:obsidian_glass ; 19 21 23 15
-default:obsidian ; 19 21 24
-default:papyrus ; 94 132 33
-default:permafrost ; 70 65 60
-default:pine_bush_sapling ; 55 50 39
-default:pine_bush_stem ; 73 62 53
-default:pine_needles ; 11 48 18
-default:pine_sapling ; 27 48 25
-default:pine_wood ; 221 184 128
-default:dirt_with_rainforest_litter ; 74 38 8
-default:river_water_source ; 31 181 227 140
-default:sand ; 214 207 158
-default:sandstone_block ; 195 190 141
-default:sandstonebrick ; 193 189 140
-default:sandstone ; 197 193 143
-default:sapling ; 65 59 40
-default:sign_wall_steel ; 144 144 144
-default:sign_wall_wood ; 145 101 64
-default:silver_sand ; 193 191 179
-default:silver_sandstone_block ; 192 190 179
-default:silver_sandstone_brick ; 190 188 178
-default:silver_sandstone ; 195 192 181
-default:snowblock ; 224 225 238
-default:steelblock ; 194 194 194
-default:stone_block ; 99 96 95
-default:stonebrick ; 99 96 95
-default:stone ; 97 94 93
-default:tinblock ; 149 149 149
-default:torch ; 127 100 64
-default:water_source ; 26 127 221 140
-default:wood ; 128 99 55
+default:acacia_bush_sapling  85 118 58
+default:acacia_bush_stem  84 76 69
+default:acacia_leaves  108 147 67
+default:acacia_sapling  86 116 61
+default:acacia_wood  146 60 37
+default:apple  145 20 9
+default:aspen_leaves  70 104 27
+default:aspen_sapling  82 110 43
+default:aspen_wood  209 198 169
+default:bookshelf  92 80 45
+default:brick  117 71 69
+default:bronzeblock  185 110 15
+default:bush_sapling  65 60 40
+default:bush_stem  45 33 23
+default:cactus  52 116 15
+default:chest  140 108 65
+default:clay  182 182 182
+default:coalblock  57 57 57
+default:cobble  88 84 82
+default:dirt_with_coniferous_litter  107 88 68
+default:copperblock  192 126 63
+default:coral_brown  139 104 72
+default:coral_cyan  0 134 137
+default:coral_green  26 168 0
+default:coral_orange  191 62 12
+default:coral_pink  204 5 130
+default:coral_skeleton  235 230 214
+default:desert_cobble  107 65 49
+default:desert_sand  206 165 98
+default:desert_sandstone_block  192 151 94
+default:desert_sandstone_brick  191 151 94
+default:desert_sandstone  195 152 92
+default:desert_stone_block  130 79 60
+default:desert_stonebrick  129 79 60
+default:desert_stone  129 79 60
+default:diamondblock  135 217 223
+default:dirt  96 67 41
+default:dry_dirt  178 136 90
+default:dry_grass_1  208 172 87
+default:dry_grass_2  210 174 87
+default:dry_grass_3  210 174 87
+default:dry_grass_4  211 175 88
+default:dry_grass_5  213 178 92
+default:dry_shrub  101 66 17
+default:emergent_jungle_sapling  48 39 15
+default:fern_1  81 114 48
+default:fern_2  86 118 50
+default:fern_3  88 121 52
+default:furnace  100 96 94
+default:glass  247 247 247 15
+default:goldblock  230 201 29
+default:grass_1  97 138 53
+default:grass_2  95 136 54
+default:grass_3  91 133 52
+default:grass_4  86 130 45
+default:grass_5  83 124 47
+default:dirt_with_grass  64 111 25
+default:gravel  131 131 131
+default:ice  167 206 247
+default:junglegrass  63 105 25
+default:jungleleaves  20 28 15
+default:junglesapling  48 38 15
+default:junglewood  54 37 11
+default:sand_with_kelp  139 138 46
+default:ladder_steel  126 126 126
+default:ladder_wood  123 90 34
+default:large_cactus_seedling  44 101 16
+default:lava_source  196 76 6
+default:leaves  34 52 29
+default:marram_grass_1  96 133 89
+default:marram_grass_2  87 126 83
+default:marram_grass_3  85 125 82
+default:mese_block  220 220 0
+default:meselamp  211 213 139
+default:permafrost_with_moss  106 147 49
+default:mossycobble  86 90 68
+default:obsidian_block  20 22 25
+default:obsidianbrick  20 22 24
+default:obsidian_glass  19 21 23 15
+default:obsidian  19 21 24
+default:papyrus  94 132 33
+default:permafrost  70 65 60
+default:pine_bush_sapling  55 50 39
+default:pine_bush_stem  73 62 53
+default:pine_needles  11 48 18
+default:pine_sapling  27 48 25
+default:pine_wood  221 184 128
+default:dirt_with_rainforest_litter  74 38 8
+default:river_water_source  31 181 227 140
+default:sand  214 207 158
+default:sandstone_block  195 190 141
+default:sandstonebrick  193 189 140
+default:sandstone  197 193 143
+default:sapling  65 59 40
+default:sign_wall_steel  144 144 144
+default:sign_wall_wood  145 101 64
+default:silver_sand  193 191 179
+default:silver_sandstone_block  192 190 179
+default:silver_sandstone_brick  190 188 178
+default:silver_sandstone  195 192 181
+default:snowblock  224 225 238
+default:steelblock  194 194 194
+default:stone_block  99 96 95
+default:stonebrick  99 96 95
+default:stone  97 94 93
+default:tinblock  149 149 149
+default:torch  127 100 64
+default:water_source  26 127 221 140
+default:wood  128 99 55

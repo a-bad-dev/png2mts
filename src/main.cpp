@@ -51,7 +51,17 @@ struct ImageData {
     unsigned char *data;
 };
 
+enum class Axis {
+    NONE,
+    XY,
+    XZ,
+    YZ,
+};
 
+struct Orientation {
+    Axis axis;
+    int  angle;
+};
 
 // =============================== Image Encoding ===============================
 using NodeColorPair = std::pair<std::string, Vec4>;
@@ -93,7 +103,38 @@ public:
         return closest_node_name;
     }
 
-    void encode_image(const ImageData &image, std::string &output_path) {
+    void encode_image(const ImageData &image, const std::string &output_path, const Orientation &orientation) {
+        // Orientation
+        Vec4 dimensions;
+
+        switch (orientation.axis) {
+            case Axis::XY: {
+                dimensions.x = image.width;
+                dimensions.y = image.height;
+                dimensions.z = 1;
+                break;
+            }
+
+            case Axis::XZ: {
+                dimensions.x = image.width;
+                dimensions.y = 1;
+                dimensions.z = image.height;
+                break;
+            }
+
+            case Axis::YZ: {
+                dimensions.x = 1;
+                dimensions.y = image.height;
+                dimensions.z = image.width;
+                break;
+            }
+
+            default: {
+                std::cerr << "Invalid Orientation." << std::endl;
+                return;
+            }
+        }
+
         // Encode the image
         int node_count = image.width * image.height;
 
@@ -105,11 +146,26 @@ public:
 
         std::cout << "Encoding image... [0/" << node_count << "]";
 
-        for (int i = 0; i < node_count; i++) {
-            int r = image.data[i * 4];
-            int g = image.data[i * 4 + 1];
-            int b = image.data[i * 4 + 2];
-            int a = image.data[i * 4 + 3];
+        const int w = image.width;
+        const int h = image.height;
+        for (int y = 0; y < image.height; y++)
+        for (int x = 0; x < image.width; x++)
+        {
+            int i;
+
+            // I apologize for the lack of readability
+            switch (orientation.angle) {
+                case 90:  i = (x * w + (h - y)); break;
+                case 180: i = ((h - y) * h + (w - x)); break;
+                case 270: i = ((w - x) * w + y); break;
+                default:  i = (y * h + x); break;
+            }
+            i *= 4;
+
+            int r = image.data[i];
+            int g = image.data[i + 1];
+            int b = image.data[i + 2];
+            int a = image.data[i + 3];
             Vec4 color(r, g, b, a);
 
             std::string node = get_closest_node_name(color / 255.0f);
@@ -128,7 +184,7 @@ public:
             std::cout << "\rEncoding image... [" << i << "/" << node_count << "]" << std::flush;
         }
 
-        std::cout << std::endl << "Encoding Schematic...";
+        std::cout << std::endl << "Encoding Schematic..." << std::endl;
 
         std::unordered_map<std::string, int> node_to_index;
 
@@ -152,7 +208,7 @@ public:
         std::vector<uint8_t> compressed(compressed_size);
 
         if (compress(compressed.data(), &compressed_size, uncompressed.data(), uncompressed.size()) != Z_OK) {
-            std::cerr << std::endl << "Compression failed" << std::endl;
+            std::cerr << "Compression failed." << std::endl;
             return;
         }
         compressed.resize(compressed_size);
@@ -171,11 +227,11 @@ public:
         write_u8(buf, 4);
 
         // Schematic dimensions
-        write_u16(buf, image.width);
-        write_u16(buf, 1);
-        write_u16(buf, image.height);
+        write_u16(buf, dimensions.x);
+        write_u16(buf, dimensions.y);
+        write_u16(buf, dimensions.z);
 
-        for (int i = 0; i < 1; i++) buf.push_back(0xFF);
+        for (int i = 0; i < dimensions.y; i++) buf.push_back(0xFF);
 
         // Node list
         write_u16(buf, used_names.size());
@@ -192,7 +248,7 @@ public:
         out.write(reinterpret_cast<const char*>(buf.data()), buf.size());
         out.close();
 
-        std::cout << std::endl << "Done" << std::endl;
+        std::cout << "Done" << std::endl;
     }
 };
 
@@ -202,26 +258,54 @@ struct CommandArgs {
     std::string palette_path = "palettes/default.txt";
     std::string image_path;
     std::string output_path;
+    Orientation orientation = {
+        Axis::XZ,
+        0
+    };
+    bool flip_y = false;
 
     char **argv;
     int argc;
 
-    std::string next_arg(int i) const {
+    std::string next_arg(int &i) const {
         if (i + 1 < argc) {
             return std::string(argv[i + 1]);
         }
+
         return "";
     }
 
     CommandArgs(int argc, char **argv) : argc(argc), argv(argv) {
+        bool s_orientation = false;
+
         for (int i = 1; i < argc; i++) {
             std::string arg = argv[i];
             if (arg == "--palette") {
                 palette_path = next_arg(i);
+
             } else if (arg == "--image") {
                 image_path = next_arg(i);
+
             } else if (arg == "--output") {
                 output_path = next_arg(i);
+
+            } else if (arg == "--axis") {
+                if      (next_arg(i) == "XY") orientation.axis = Axis::XY;
+                else if (next_arg(i) == "XZ") orientation.axis = Axis::XZ;
+                else if (next_arg(i) == "YZ") orientation.axis = Axis::YZ;
+                else                          orientation.axis = Axis::NONE;
+
+            } else if (arg == "--rotate") {
+                // im too lazy to make a better rotation solver
+                if      (next_arg(i) == "0")   orientation.angle = 0;
+                else if (next_arg(i) == "90")  orientation.angle = 90;
+                else if (next_arg(i) == "180") orientation.angle = 180;
+                else if (next_arg(i) == "270") orientation.angle = 270;
+                else                           orientation.angle = -1;
+
+            } else if (arg == "--flip-y") {
+                flip_y = true;
+
             } else if (arg == "--help") {
                 print_help();
                 exit(0);
@@ -233,7 +317,9 @@ struct CommandArgs {
     }
 
     bool is_valid() const {
-        return !palette_path.empty() && !image_path.empty() && !output_path.empty();
+        return !palette_path.empty() && !image_path.empty() && 
+               !output_path.empty() && orientation.axis != Axis::NONE &&
+               orientation.angle != -1;
     }
 
     void print_help() const {
@@ -242,6 +328,8 @@ struct CommandArgs {
         std::cout << "  --palette <palette_path>  Path to the palette file" << std::endl;
         std::cout << "  --image <image_path>      Path to the image file" << std::endl;
         std::cout << "  --output <output_path>    Path to the output file (If not provided it defaults to `<image_path>.mts`)" << std::endl;
+        std::cout << "  --axis <XY|XZ|ZY>         Reorient the schematic to one of the listed axis (If not provided it defaults to `XZ`)" << std::endl;
+        std::cout << "  --rotate <0|90|180|270>   Rotate the schematic by the listed angles (If not provided it defaults to `0`)" << std::endl;
         std::cout << "  --help                    Print this help message" << std::endl;
     }
 };
@@ -261,7 +349,7 @@ int main(int argc, char **argv) {
     std::ifstream palette_file(args.palette_path.c_str());
     std::string line;
     while (std::getline(palette_file, line)) {
-        std::regex regex("^(\\S+?)\\s*;\\s*(\\d+)\\s+(\\d+)\\s+(\\d+)[\\s+]?(\\d+)?$");
+        std::regex regex("^([\\S^#]+)\\s+(\\d+)\\s+(\\d+)\\s+(\\d+)[\\s+]?(\\d+)?$");
         std::smatch match;
         if (std::regex_match(line, match, regex)) {
             std::string name = match[1].str();
@@ -277,7 +365,7 @@ int main(int argc, char **argv) {
     
     // Image Loading
     int width, height, channels;
-    stbi_set_flip_vertically_on_load(true);
+    stbi_set_flip_vertically_on_load(!args.flip_y);
     unsigned char *data = stbi_load(args.image_path.c_str(), &width, &height,
                                     &channels, 4);
     if (!data) {
@@ -289,7 +377,7 @@ int main(int argc, char **argv) {
     ImageData image = {width, height, channels, data};
     Encoder encoder(palette);
 
-    encoder.encode_image(image, args.output_path);
+    encoder.encode_image(image, args.output_path, args.orientation);
 
     stbi_image_free(data);
 
