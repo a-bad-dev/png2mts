@@ -152,7 +152,7 @@ public:
         for (int y = 0; y < image.height; y++)
         for (int x = 0; x < image.width; x++)
         {
-            std::cout << "\rEncoding image... [" << image_nodes.size() << "/" << node_count << "]" << std::flush;
+            std::cout << "\rEncoding image... [" << image_nodes.size() + 1 << "/" << node_count << "]" << std::flush;
         
             int i;
 
