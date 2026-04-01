@@ -152,8 +152,6 @@ public:
         for (int y = 0; y < h; y++)
         for (int x = 0; x < w; x++)
         {
-            std::cout << "\rEncoding image... [" << image_nodes.size() + 1 << "/" << node_count << "]" << std::flush;
-            
             int rx, ry;
             switch (orientation.angle) {
                 case 90:
@@ -196,6 +194,8 @@ public:
             }
 
             image_nodes.push_back(iterator->second);
+
+            std::cout << "\rEncoding image... [" << image_nodes.size() << "/" << node_count << "]" << std::flush;
         }
 
         std::cout << std::endl << "Encoding Schematic..." << std::endl;
